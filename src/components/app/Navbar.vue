@@ -32,10 +32,11 @@ export default {
 		date: new Date(),
 		intervel: null,
 		dropdown: null,
+		username: 'User Name',
 	}),
 	methods: {
-		logout() {
-			console.log('logout');
+		async logout() {
+			await this.$store.dispatch('logout');
 			this.$router.push('/login?message=logouttext')
 		}
 	},
@@ -45,7 +46,7 @@ export default {
 		});
 		this.interval = setInterval(() => {
 			this.date = new Date();
-		}, 1000)
+		}, 1000);
 	},
 	beforeDestroy() {
 		clearInterval(this.dropdown);
