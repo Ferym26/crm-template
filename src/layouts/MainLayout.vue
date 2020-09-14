@@ -30,6 +30,9 @@ export default {
 	},
 	data: () => ({
 		isOpen: true
-	})
+	}),
+	mounted() {
+		this.$store.dispatch('getUserFB');
+	}
 }
 </script>

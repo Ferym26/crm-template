@@ -53,7 +53,6 @@ export default {
 		this.interval = setInterval(() => {
 			this.date = new Date();
 		}, 1000);
-		this.$store.dispatch('getUserFB');
 	},
 	beforeDestroy() {
 		clearInterval(this.dropdown);
