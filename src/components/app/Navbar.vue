@@ -11,7 +11,7 @@
 							href='#'
 							data-target='dropdown'
 							ref='dropdownRef'
-						) {{currentuser}}
+						) {{userName}}
 						i.material-icons.right arrow_drop_down
 					ul#dropdown.dropdown-content
 						li
@@ -42,8 +42,8 @@ export default {
 		},
 	},
 	computed: {
-		currentuser() {
-			return this.$store.getters.getUser.name
+		userName() {
+			return this.$store.getters.info.name
 		}
 	},
 	mounted() {

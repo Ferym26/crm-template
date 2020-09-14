@@ -2,30 +2,46 @@
 	div
 		.page-title
 			h3 Счет
-			button.btn.waves-effect.waves-light.btn-small
+			button.btn.waves-effect.waves-light.btn-small(
+				@click='refresh'
+			)
 				i.material-icons refresh
-		.row
+		Loader(v-if='loading')
+		.row(v-else)
 			.col.s12.m6.l4
-				.card.light-blue.bill-card
-					.card-content.white-text
-						span.card-title Счет в валюте
-						p.currency-line
-							span 12.0 Р
+				HomeBill(
+					:rates='currency.rates'
+				)
 			.col.s12.m6.l8
-				.card.orange.darken-3.bill-card
-					.card-content.white-text
-						.card-header
-							span.card-title Курс валют
-						table
-							thead
-								tr
-									th Валюта
-									th Курс
-									th Дата
-							tbody
-								tr
-									td руб
-									td 12121
-									td 12.12.12
+				HomeCurrency(
+					:rates='currency.rates'
+					:date='currency.date'
+				)
 
 </template>
+
+<script>
+import HomeBill from '@/components/HomeBill'
+import HomeCurrency from '@/components/HomeCurrency'
+export default {
+	name: 'home',
+	data: () => ({
+		loading: true,
+		currency: null,
+	}),
+	async mounted() {
+		this.currency = await this.$store.dispatch('fetchCurrency');
+		this.loading = false;
+	},
+	methods: {
+		async refresh() {
+			this.loading = true;
+			this.currency = await this.$store.dispatch('fetchCurrency');
+			this.loading = false;
+		}
+	},
+	components: {
+		HomeBill, HomeCurrency
+	}
+}
+</script>

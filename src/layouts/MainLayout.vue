@@ -32,7 +32,9 @@ export default {
 		isOpen: true
 	}),
 	mounted() {
-		this.$store.dispatch('getUserFB');
+		if(!Object.keys(this.$store.getters.info).length) {
+			this.$store.dispatch('getUserFB');
+		}
 	}
 }
 </script>
