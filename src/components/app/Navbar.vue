@@ -11,7 +11,7 @@
 							href='#'
 							data-target='dropdown'
 							ref='dropdownRef'
-						) USER NAME
+						) {{currentuser}}
 						i.material-icons.right arrow_drop_down
 					ul#dropdown.dropdown-content
 						li
@@ -27,17 +27,23 @@
 </template>
 
 <script>
+// import {mapGetters, mapActions} from 'vuex';
 export default {
 	data: () => ({
 		date: new Date(),
 		intervel: null,
 		dropdown: null,
-		username: 'User Name',
+
 	}),
 	methods: {
 		async logout() {
 			await this.$store.dispatch('logout');
 			this.$router.push('/login?message=logouttext')
+		},
+	},
+	computed: {
+		currentuser() {
+			return this.$store.getters.getUser.name
 		}
 	},
 	mounted() {
@@ -47,6 +53,7 @@ export default {
 		this.interval = setInterval(() => {
 			this.date = new Date();
 		}, 1000);
+		this.$store.dispatch('getUserFB');
 	},
 	beforeDestroy() {
 		clearInterval(this.dropdown);
